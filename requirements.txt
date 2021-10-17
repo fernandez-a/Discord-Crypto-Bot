@@ -1,0 +1,5 @@
+python-dotenv==0.19.1
+discord.py==1.7.3
+bs4==0.0.1
+requests==2.26.00
+pycoingecko==2.2.0
