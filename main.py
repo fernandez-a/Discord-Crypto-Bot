@@ -66,6 +66,11 @@ async def key(ctx, arg):
 
 
 @client.command()
+async def hola(ctx):
+    await ctx.send("Hola, recuerda Pacho es el mejor")
+
+
+@client.command()
 async def coin(ctx, name, currency):
     list = get_lista()
     dict_id = next(item for item in list if item["id"] == f"{name}")
