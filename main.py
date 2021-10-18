@@ -7,12 +7,14 @@ import bs4
 import dotenv
 from discord.ext import commands
 from pycoingecko import CoinGeckoAPI
+from requests.models import Response
 
 
 client = commands.Bot(command_prefix="!")
 client.remove_command('help')
 dotenv.load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+ALPHA_KEY = os.getenv('TD_KEY')
 
 
 def get_image(symbol, coin):
@@ -35,6 +37,12 @@ def get_lista():
     return lista
 
 
+def get_stock_price(symbol):
+    url = f"https://api.twelvedata.com/price?symbol={symbol}&apikey={apikey}"
+    response = requests.get(url).json()
+    return response
+
+
 @client.command(pass_context=True)
 async def help(ctx):
     author = ctx.message.author
@@ -52,22 +60,25 @@ async def help(ctx):
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name="Watching CoinGecko"))
-    # here you can change the discord bot presence text
     print('Logged in as')
     print(client.user.name)
     print('------')
-    # a few extra informations
 
 
 @client.command()
 async def key(ctx, arg):
     api_key = arg
-    # !key gets removed to store the string for your key. Now you can make the request with it.
 
 
 @client.command()
-async def hola(ctx):
-    await ctx.send("Hola, recuerda Pacho es el mejor")
+async def enterprise(ctx, name):
+    j_response = get_stock_price(name)
+    price = j_response['price']
+    embed_coin = discord.Embed(
+        title=f"{name.upper()}", colour=discord.Color.green())
+    embed_coin.add_field(name="Price",
+                         value=f"{price}", inline=True)
+    await ctx.send(embed=embed_coin)
 
 
 @client.command()
