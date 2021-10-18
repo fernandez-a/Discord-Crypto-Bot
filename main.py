@@ -1,5 +1,6 @@
 
 import datetime
+from logging import fatal
 import discord
 import requests
 import os
@@ -46,14 +47,16 @@ def get_stock_price(symbol):
 @client.command(pass_context=True)
 async def help(ctx):
     author = ctx.message.author
-
+    lookup_url = "https://www.marketwatch.com/tools/quotes/lookup.asp?siteID=mktw&Lookup"
     embed = discord.Embed(
         colour=discord.Color.greyple()
     )
     embed.set_author(name="Help")
     embed.add_field(name="!coin <name> <currency>",
-                    value="Returns the current price of the coin")
-
+                    value="Returns the current price of the coin", inline=False)
+    embed.add_field(
+        name="!enterprise <name>",
+        value=f"You can check the name of the stock on {lookup_url}")
     await ctx.send(embed=embed)
 
 
@@ -74,6 +77,7 @@ async def key(ctx, arg):
 async def enterprise(ctx, name):
     j_response = get_stock_price(name)
     price = j_response['price']
+
     embed_coin = discord.Embed(
         title=f"{name.upper()}", colour=discord.Color.green())
     embed_coin.add_field(name="Price",
