@@ -1,2 +1,8 @@
 # CoinBot
  
+## About
+
+### Features
+
+
+## Commands
