@@ -14,7 +14,7 @@ client = commands.Bot(command_prefix="!")
 client.remove_command('help')
 dotenv.load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
-ALPHA_KEY = os.getenv('TD_KEY')
+TD_KEY = os.getenv('TD_KEY')
 
 
 def get_image(symbol, coin):
@@ -38,7 +38,7 @@ def get_lista():
 
 
 def get_stock_price(symbol):
-    url = f"https://api.twelvedata.com/price?symbol={symbol}&apikey={apikey}"
+    url = f"https://api.twelvedata.com/price?symbol={symbol}&apikey={TD_KEY}"
     response = requests.get(url).json()
     return response
 
