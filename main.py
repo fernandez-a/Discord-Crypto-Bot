@@ -120,7 +120,7 @@ async def coin(ctx, name, currency):
                          value=f"{market_cap}", inline=False)
     embed_coin.add_field(name="24H Volume",
                          value=f"{volume}", inline=False)
-    embed_coin.add_field(name="More info", value="{url}")
+    embed_coin.add_field(name="More info", value=url)
     await ctx.send(embed=embed_coin)
 
 
