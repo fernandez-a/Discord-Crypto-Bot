@@ -101,7 +101,6 @@ async def coin(ctx, name, currency):
     dict_id = next(item for item in list if item["id"] == f"{name}")
     symbol = dict_id['symbol']
     image = get_image(symbol, name)
-    url = f"https://www.coingecko.com/en/coins/{name}"
     r = get_crypto_price(name, currency)
     clave = r[f'{name}']
     price = clave[f"{currency}"]
@@ -110,7 +109,7 @@ async def coin(ctx, name, currency):
     change = clave[f"{currency}_24h_change"]
     embed_coin = discord.Embed(
         title=f"{name.upper()}", colour=discord.Color.orange())
-    embed_coin.timestamp = datetime.datetime.utcnow()
+    embed_coin.timestamp = "Made by Pacho" + datetime.datetime.utcnow()
     embed_coin.set_thumbnail(url=image)
     embed_coin.add_field(name="Price",
                          value=f"{price}", inline=True)
@@ -120,7 +119,8 @@ async def coin(ctx, name, currency):
                          value=f"{market_cap}", inline=False)
     embed_coin.add_field(name="24H Volume",
                          value=f"{volume}", inline=False)
-    embed_coin.add_field(name="More info", value=url)
+    embed_coin.add_field(
+        name="More info", value=f"https://www.coingecko.com/en/coins/{name}")
     await ctx.send(embed=embed_coin)
 
 
