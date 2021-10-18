@@ -49,7 +49,7 @@ def get_exchange(amount):
     url = f"https://api.twelvedata.com/currency_conversion?symbol=USD/EUR&amount={amount}&apikey={TD_KEY}"
     response = requests.get(url).json()
     price = response['amount']
-    return response
+    return price
 
 
 @client.command(pass_context=True)
@@ -83,12 +83,15 @@ async def key(ctx, arg):
 
 @client.command()
 async def enterprise(ctx, name, amount):
-    usd_price = get_stock_price(name) * amount
-    eur_price = get_exchange(amount)
+    usd_price = float(get_stock_price(name)) * float(amount)
+    price = float(get_stock_price(name)) * float(amount)
+    eur_price = get_exchange(price)
     embed_coin = discord.Embed(
         title=f"{name.upper()}", colour=discord.Color.green())
-    embed_coin.add_field(name="Price",
+    embed_coin.add_field(name="Price €",
                          value=f"{eur_price} " + "€", inline=True)
+    embed_coin.add_field(name="Price $",
+                         value=f"{usd_price} " + "€", inline=True)
     await ctx.send(embed=embed_coin)
 
 
