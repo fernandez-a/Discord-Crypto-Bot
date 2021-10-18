@@ -101,6 +101,7 @@ async def coin(ctx, name, currency):
     dict_id = next(item for item in list if item["id"] == f"{name}")
     symbol = dict_id['symbol']
     image = get_image(symbol, name)
+    url = f"https://www.coingecko.com/en/coins/{name}"
     r = get_crypto_price(name, currency)
     clave = r[f'{name}']
     price = clave[f"{currency}"]
@@ -119,6 +120,7 @@ async def coin(ctx, name, currency):
                          value=f"{market_cap}", inline=False)
     embed_coin.add_field(name="24H Volume",
                          value=f"{volume}", inline=False)
+    embed_coin.add_field(name="More info", value="{url}")
     await ctx.send(embed=embed_coin)
 
 
