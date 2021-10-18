@@ -41,6 +41,14 @@ def get_lista():
 def get_stock_price(symbol):
     url = f"https://api.twelvedata.com/price?symbol={symbol}&apikey={TD_KEY}"
     response = requests.get(url).json()
+    price = response['price']
+    return price
+
+
+def get_exchange(amount):
+    url = f"https://api.twelvedata.com/currency_conversion?symbol=USD/EUR&amount={amount}&apikey={TD_KEY}"
+    response = requests.get(url).json()
+    price = response['amount']
     return response
 
 
@@ -55,7 +63,7 @@ async def help(ctx):
     embed.add_field(name="!coin <name> <currency>",
                     value="Returns the current price of the coin", inline=False)
     embed.add_field(
-        name="!enterprise <name>",
+        name="!enterprise <name> <amount>",
         value=f"You can check the name of the stock on {lookup_url}")
     await ctx.send(embed=embed)
 
@@ -74,14 +82,13 @@ async def key(ctx, arg):
 
 
 @client.command()
-async def enterprise(ctx, name):
-    j_response = get_stock_price(name)
-    price = j_response['price']
-
+async def enterprise(ctx, name, amount):
+    usd_price = get_stock_price(name) * amount
+    eur_price = get_exchange(amount)
     embed_coin = discord.Embed(
         title=f"{name.upper()}", colour=discord.Color.green())
     embed_coin.add_field(name="Price",
-                         value=f"{price}", inline=True)
+                         value=f"{eur_price} " + "€", inline=True)
     await ctx.send(embed=embed_coin)
 
 
