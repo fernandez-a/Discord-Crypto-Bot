@@ -109,7 +109,7 @@ async def coin(ctx, name, currency):
     change = clave[f"{currency}_24h_change"]
     embed_coin = discord.Embed(
         title=f"{name.upper()}", colour=discord.Color.orange())
-    embed_coin.timestamp = "Made by Pacho" + datetime.datetime.utcnow()
+    embed_coin.timestamp = datetime.datetime.utcnow()
     embed_coin.set_thumbnail(url=image)
     embed_coin.add_field(name="Price",
                          value=f"{price}", inline=True)
