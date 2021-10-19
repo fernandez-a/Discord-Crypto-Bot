@@ -1,4 +1,4 @@
-# CoinBot
+# CoinBot(CRT)
  
 ## About
 CRT is a Discord Bot that help you track cripto and stock prices
