@@ -100,13 +100,18 @@ async def coin(ctx, name, currency):
     list = get_lista()
     dict_id = next(item for item in list if item["id"] == f"{name}")
     symbol = dict_id['symbol']
-    image = get_image(symbol, name)
     r = get_crypto_price(name, currency)
     clave = r[f'{name}']
     price = clave[f"{currency}"]
     market_cap = clave[f"{currency}_market_cap"]
     volume = clave[f"{currency}_24h_vol"]
     change = clave[f"{currency}_24h_change"]
+    if("-" in name):
+        spl = name.split("-")
+        n_ = spl[0]+" "+spl[1]
+        image = get_image(symbol, n_)
+    else:
+        image = get_image(symbol, name)
     embed_coin = discord.Embed(
         title=f"{name.upper()}", colour=discord.Color.orange())
     embed_coin.timestamp = datetime.datetime.utcnow()
