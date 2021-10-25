@@ -4,7 +4,7 @@
 CRT is a Discord Bot that help you track cripto and stock prices
 
 ### Features
-
+Implements the TwelveData API for the track on the stocks, and the CoinGecko APi to track the cryptocurrencies.
 
 ## Commands
 | Command        | Parameters         |  Description    |
