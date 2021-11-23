@@ -1,4 +1,4 @@
-beautifulsoup4==4.10.0bs4==0.0.1
+beautifulsoup4==4.9
 DateTime==4.3
 discord==1.7.3
 discord-webhook==0.14.0
