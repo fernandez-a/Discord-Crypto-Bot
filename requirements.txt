@@ -6,4 +6,4 @@ discord.py==1.7.3
 multidict==5.2.0
 pycodestyle==2.8.0
 pycoingecko==2.2.0
-requests==2.26.0
+requests>=2.32.0
